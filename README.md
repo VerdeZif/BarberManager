@@ -130,3 +130,9 @@ Proyecto académico desarrollado por un equipo de cuatro integrantes.
 - [Flujos de la aplicación](docs/flujos-aplicacion.md)
 - [Modelo entidad-relación](docs/modelo-entidad-relacion.md)
 - [Rutas y pantallas](docs/rutas-pantallas.md)
+
+## Organización del equipo
+
+Consulta las responsabilidades y tareas de cada integrante:
+
+[Ver plan de trabajo del equipo](docs/equipo/README.md)
