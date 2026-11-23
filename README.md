@@ -122,3 +122,11 @@ Se utilizará el patrón MVC y una arquitectura organizada por capas.
 **En desarrollo.**
 
 Proyecto académico desarrollado por un equipo de cuatro integrantes.
+
+
+## Documentación oficial
+
+- [Especificación funcional y técnica](docs/especificacion-funcional-tecnica.md)
+- [Flujos de la aplicación](docs/flujos-aplicacion.md)
+- [Modelo entidad-relación](docs/modelo-entidad-relacion.md)
+- [Rutas y pantallas](docs/rutas-pantallas.md)
