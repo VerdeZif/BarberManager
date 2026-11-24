@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence" version="3.0">
+    <persistence-unit name="barbermanager" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <class>com.barbermanager.model.Usuario</class>
+        <class>com.barbermanager.model.Cliente</class>
+        <class>com.barbermanager.model.Barbero</class>
+        <class>com.barbermanager.model.Servicio</class>
+        <class>com.barbermanager.model.Cita</class>
+        <class>com.barbermanager.model.Atencion</class>
+        <class>com.barbermanager.model.Producto</class>
+        <class>com.barbermanager.model.MovimientoInventario</class>
+        <class>com.barbermanager.model.Venta</class>
+        <class>com.barbermanager.model.DetalleVenta</class>
+        <class>com.barbermanager.model.Pago</class>
+        <class>com.barbermanager.model.Comision</class>
+        <properties>
+            <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+            <property name="hibernate.hbm2ddl.auto" value="validate"/>
+            <property name="hibernate.jdbc.time_zone" value="America/Lima"/>
+        </properties>
+    </persistence-unit>
+</persistence>
