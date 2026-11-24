@@ -1,0 +1,9 @@
+<%@ page pageEncoding="UTF-8" %>
+<footer class="bm-footer">
+    <div class="bm-contenedor py-4 d-flex flex-wrap gap-3 justify-content-between align-items-center">
+        <a class="bm-logo bm-logo--claro" href="${ctx}/">BARBER <span>MANAGER</span></a>
+        <span class="small">Lun – Sáb · 9:00 a 18:00 · Pago en el local: efectivo, Yape, Plin o tarjeta</span>
+        <span class="small">© 2026 BarberManager · Proyecto académico</span>
+    </div>
+</footer>
+<%@ include file="/WEB-INF/views/fragments/scripts.jspf" %>

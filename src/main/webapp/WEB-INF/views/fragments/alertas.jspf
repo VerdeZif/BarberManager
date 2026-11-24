@@ -1,0 +1,33 @@
+<%@ page pageEncoding="UTF-8" %>
+<%--
+  Mensajes del servidor.
+  Request:  mensajeExito, mensajeError, mensajeInfo
+  Sesión (flash, para Post/Redirect/Get): flashExito, flashError
+  Los flash se borran después de mostrarse.
+--%>
+<c:if test="${not empty sessionScope.flashExito}">
+    <c:set var="mensajeExito" value="${sessionScope.flashExito}"/>
+    <c:remove var="flashExito" scope="session"/>
+</c:if>
+<c:if test="${not empty sessionScope.flashError}">
+    <c:set var="mensajeError" value="${sessionScope.flashError}"/>
+    <c:remove var="flashError" scope="session"/>
+</c:if>
+<c:if test="${not empty mensajeExito}">
+    <div class="bm-alerta bm-alerta-ok alert alert-dismissible fade show mb-3" role="status">
+        <span aria-hidden="true">✔</span><span><c:out value="${mensajeExito}"/></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+    </div>
+</c:if>
+<c:if test="${not empty mensajeError}">
+    <div class="bm-alerta bm-alerta-error alert alert-dismissible fade show mb-3" role="alert">
+        <span aria-hidden="true">!</span><span><c:out value="${mensajeError}"/></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+    </div>
+</c:if>
+<c:if test="${not empty mensajeInfo}">
+    <div class="bm-alerta bm-alerta-info alert alert-dismissible fade show mb-3" role="status">
+        <span aria-hidden="true">i</span><span><c:out value="${mensajeInfo}"/></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+    </div>
+</c:if>

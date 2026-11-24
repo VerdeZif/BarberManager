@@ -17,18 +17,18 @@
 ## Actividades por entregas
 
 ### E0 — Diseño común
-- [ ] Crear propuesta de diseño para portal público y panel interno (paleta, navbar, sidebar, formularios, mensajes).
-- [ ] Definir componentes JSP reutilizables: encabezado, menú, pie, alertas, tabla y modal (según necesidad).
+- [x] Crear propuesta de diseño para portal público y panel interno (paleta, navbar, sidebar, formularios, mensajes).
+- [x] Definir componentes JSP reutilizables: encabezado, menú, pie, alertas, tabla y modal (según necesidad).
 - [ ] Acordar con Alexander rutas, parámetros, atributos de request/session y nombres de formularios antes de conectarlos.
-- [ ] Preparar páginas de error 403/404 y estados vacíos de tablas.
+- [x] Preparar páginas de error 403/404 y estados vacíos de tablas.
 
 ### E1 — Portal y autenticación (M01)
-- [ ] Implementar inicio público `/` con presentación y enlaces a servicios y barberos.
-- [ ] Crear catálogo `/servicios` con nombre, descripción, precio S/ y duración.
-- [ ] Crear listado público `/barberos` con datos permitidos.
-- [ ] Diseñar JSP `/registro`, `/login` y las validaciones JS de datos obligatorios.
-- [ ] Mostrar mensajes del servidor para correo/username duplicado, credenciales inválidas y cierre de sesión.
-- [ ] Ocultar opciones de navegación por rol **sin reemplazar** la autorización del backend.
+- [x] Implementar inicio público `/` con presentación y enlaces a servicios y barberos.
+- [x] Crear catálogo `/servicios` con nombre, descripción, precio S/ y duración.
+- [x] Crear listado público `/barberos` con datos permitidos.
+- [x] Diseñar JSP `/registro`, `/login` y las validaciones JS de datos obligatorios.
+- [x] Mostrar mensajes del servidor para correo/username duplicado, credenciales inválidas y cierre de sesión.
+- [x] Ocultar opciones de navegación por rol **sin reemplazar** la autorización del backend.
 
 ### E2 — Reservas y atenciones (M02–M06)
 - [ ] Formulario `/reservas/nueva`: **un servicio**, un barbero, fecha y horario.

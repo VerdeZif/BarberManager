@@ -1,0 +1,11 @@
+<%@ page pageEncoding="UTF-8" %>
+<%-- Panel decorativo vino de login / registro (se oculta en móvil) --%>
+<aside class="bm-acceso-lado" aria-hidden="true">
+    <a class="bm-logo bm-logo--claro" href="${ctx}/" tabindex="-1">BARBER <span>MANAGER</span></a>
+    <h2>Tu silla<br><em>te espera</em></h2>
+    <ul class="bm-acceso-lista">
+        <li>Reserva en 1 minuto, sin llamadas</li>
+        <li>Elige barbero y horario libre</li>
+        <li>Revisa tus citas y tickets cuando quieras</li>
+    </ul>
+</aside>
