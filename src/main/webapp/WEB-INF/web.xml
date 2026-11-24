@@ -21,4 +21,18 @@
         </cookie-config>
     </session-config>
 
+    <!-- Páginas de error con el diseño del sitio (frontend) -->
+    <error-page>
+        <error-code>403</error-code>
+        <location>/WEB-INF/views/error/403.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/WEB-INF/views/error/404.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/WEB-INF/views/error/500.jsp</location>
+    </error-page>
+
 </web-app>

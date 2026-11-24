@@ -1,0 +1,51 @@
+<%@ page pageEncoding="UTF-8" %>
+<%--
+  Barra superior del portal público.
+  Variable de la página: paginaActiva = inicio | servicios | barberos | reservar | mis-citas | login | registro
+  Sesión: usuarioSesion (username, rol). Solo oculta opciones: el permiso real lo valida el backend.
+--%>
+<c:choose>
+    <c:when test="${rolSesion == 'ADMINISTRADOR'}"><c:set var="urlPanel" value="${ctx}/admin/dashboard"/></c:when>
+    <c:when test="${rolSesion == 'RECEPCIONISTA'}"><c:set var="urlPanel" value="${ctx}/recepcion/citas"/></c:when>
+    <c:when test="${rolSesion == 'BARBERO'}"><c:set var="urlPanel" value="${ctx}/barbero/mis-citas"/></c:when>
+</c:choose>
+<header class="bm-header">
+    <nav class="navbar navbar-expand-lg bm-contenedor" aria-label="Menú principal">
+        <a class="bm-logo me-3" href="${ctx}/">BARBER <span>MANAGER</span></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuPublico"
+                aria-controls="menuPublico" aria-expanded="false" aria-label="Abrir menú">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="menuPublico">
+            <ul class="navbar-nav bm-nav mx-lg-auto gap-1">
+                <li class="nav-item"><a class="nav-link ${paginaActiva == 'inicio' ? 'active' : ''}" ${paginaActiva == 'inicio' ? 'aria-current="page"' : ''} href="${ctx}/">Inicio</a></li>
+                <li class="nav-item"><a class="nav-link ${paginaActiva == 'servicios' ? 'active' : ''}" ${paginaActiva == 'servicios' ? 'aria-current="page"' : ''} href="${ctx}/servicios">Servicios</a></li>
+                <li class="nav-item"><a class="nav-link ${paginaActiva == 'barberos' ? 'active' : ''}" ${paginaActiva == 'barberos' ? 'aria-current="page"' : ''} href="${ctx}/barberos">Barberos</a></li>
+                <c:if test="${rolSesion == 'CLIENTE'}">
+                    <li class="nav-item"><a class="nav-link ${paginaActiva == 'mis-citas' ? 'active' : ''}" ${paginaActiva == 'mis-citas' ? 'aria-current="page"' : ''} href="${ctx}/mis-citas">Mis citas</a></li>
+                </c:if>
+                <c:if test="${not empty urlPanel}">
+                    <li class="nav-item"><a class="nav-link" href="${urlPanel}">Ir al panel</a></li>
+                </c:if>
+            </ul>
+            <div class="bm-acciones d-flex flex-wrap gap-2 align-items-center">
+                <c:choose>
+                    <c:when test="${empty usuarioSesion}">
+                        <a class="btn btn-bm-borde" href="${ctx}/login">Ingresar</a>
+                        <a class="btn btn-bm" href="${ctx}/reservas/nueva">Reservar →</a>
+                    </c:when>
+                    <c:otherwise>
+                        <span class="bm-saludo me-1">Hola, <b><c:out value="${usuarioSesion.username}"/></b></span>
+                        <form method="post" action="${ctx}/logout" class="m-0">
+                            <input type="hidden" name="csrfToken" value="<c:out value='${sessionScope.csrfToken}'/>">
+                            <button type="submit" class="btn btn-bm-borde btn-bm-sm">Salir</button>
+                        </form>
+                        <c:if test="${rolSesion == 'CLIENTE'}">
+                            <a class="btn btn-bm btn-bm-sm" href="${ctx}/reservas/nueva">Reservar →</a>
+                        </c:if>
+                    </c:otherwise>
+                </c:choose>
+            </div>
+        </div>
+    </nav>
+</header>

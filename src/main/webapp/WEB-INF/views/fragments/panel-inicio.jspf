@@ -1,0 +1,51 @@
+<%@ page pageEncoding="UTF-8" %>
+<%--
+  Inicio del layout del panel interno (sidebar vino + contenido).
+  Variable de la página: menuActivo = dashboard | usuarios | barberos | servicios | comisiones |
+                                      citas | clientes | inventario | ventas |
+                                      b-citas | b-atenciones | b-comisiones
+  El menú se arma según usuarioSesion.rol. Ocultar enlaces NO reemplaza el filtro de seguridad del backend.
+--%>
+<div class="bm-panel-top">
+    <a class="bm-logo bm-logo--claro" href="${ctx}/">BARBER <span>MANAGER</span></a>
+    <button class="btn btn-bm-claro btn-bm-sm" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuPanel" aria-controls="menuPanel">Menú</button>
+</div>
+<div class="bm-panel">
+    <aside class="bm-sidebar offcanvas-lg offcanvas-start" tabindex="-1" id="menuPanel" aria-label="Menú del panel">
+        <div class="d-flex justify-content-between align-items-center">
+            <a class="bm-logo bm-logo--claro" href="${ctx}/">BARBER <span>MANAGER</span></a>
+            <button type="button" class="btn-close btn-close-white d-lg-none" data-bs-dismiss="offcanvas" data-bs-target="#menuPanel" aria-label="Cerrar menú"></button>
+        </div>
+        <nav class="bm-menu d-flex flex-column gap-1">
+            <c:if test="${rolSesion == 'ADMINISTRADOR'}">
+                <div class="bm-menu-grupo">ADMINISTRACIÓN</div>
+                <a href="${ctx}/admin/dashboard" class="${menuActivo == 'dashboard' ? 'active' : ''}">Dashboard</a>
+                <a href="${ctx}/admin/usuarios" class="${menuActivo == 'usuarios' ? 'active' : ''}">Usuarios</a>
+                <a href="${ctx}/admin/barberos" class="${menuActivo == 'barberos' ? 'active' : ''}">Barberos y horarios</a>
+                <a href="${ctx}/admin/servicios" class="${menuActivo == 'servicios' ? 'active' : ''}">Servicios</a>
+                <a href="${ctx}/admin/comisiones" class="${menuActivo == 'comisiones' ? 'active' : ''}">Comisiones</a>
+            </c:if>
+            <c:if test="${rolSesion == 'ADMINISTRADOR' or rolSesion == 'RECEPCIONISTA'}">
+                <div class="bm-menu-grupo">RECEPCIÓN</div>
+                <a href="${ctx}/recepcion/citas" class="${menuActivo == 'citas' ? 'active' : ''}">Agenda de citas</a>
+                <a href="${ctx}/recepcion/clientes" class="${menuActivo == 'clientes' ? 'active' : ''}">Clientes</a>
+                <a href="${ctx}/recepcion/inventario" class="${menuActivo == 'inventario' ? 'active' : ''}">Inventario</a>
+                <a href="${ctx}/recepcion/ventas" class="${menuActivo == 'ventas' ? 'active' : ''}">Ventas y cobros</a>
+            </c:if>
+            <c:if test="${rolSesion == 'BARBERO'}">
+                <div class="bm-menu-grupo">BARBERO</div>
+                <a href="${ctx}/barbero/mis-citas" class="${menuActivo == 'b-citas' ? 'active' : ''}">Mis citas</a>
+                <a href="${ctx}/barbero/atenciones" class="${menuActivo == 'b-atenciones' ? 'active' : ''}">Atenciones</a>
+                <a href="${ctx}/barbero/comisiones" class="${menuActivo == 'b-comisiones' ? 'active' : ''}">Mis comisiones</a>
+            </c:if>
+        </nav>
+        <div class="bm-usuario">
+            <b><c:out value="${usuarioSesion.username}"/></b>
+            <span><c:out value="${rolSesion}"/></span>
+            <form method="post" action="${ctx}/logout" class="mt-2">
+                <input type="hidden" name="csrfToken" value="<c:out value='${sessionScope.csrfToken}'/>">
+                <button type="submit" class="btn btn-bm-claro btn-bm-sm w-100">Cerrar sesión</button>
+            </form>
+        </div>
+    </aside>
+    <main id="contenido" class="bm-panel-main">
