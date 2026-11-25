@@ -1,3 +1,4 @@
+<%@ page pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/views/fragments/taglibs.jspf" %>
 <%@ page isErrorPage="true" %>
 <%-- Página de error 403 (registrada en web.xml) --%>
@@ -11,7 +12,7 @@
     <p class="bm-muted m-0" style="max-width:520px">Esta sección es solo para otro tipo de usuario. Si crees que es un error, ingresa con la cuenta correcta o habla con el administrador.</p>
     <div class="d-flex flex-wrap justify-content-center gap-2 mt-2">
         <a class="btn btn-bm" href="${ctx}/">Volver al inicio</a>
-        <c:if test="${empty usuarioSesion}"><a class="btn btn-bm-borde" href="${ctx}/login">Ingresar</a></c:if>
+        <c:if test="${not logueado}"><a class="btn btn-bm-borde" href="${ctx}/login">Ingresar</a></c:if>
     </div>
 </main>
 

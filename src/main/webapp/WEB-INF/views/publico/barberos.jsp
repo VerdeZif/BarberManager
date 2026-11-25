@@ -1,3 +1,4 @@
+<%@ page pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/views/fragments/taglibs.jspf" %>
 <%--
   GET /barberos — Lista pública de barberos

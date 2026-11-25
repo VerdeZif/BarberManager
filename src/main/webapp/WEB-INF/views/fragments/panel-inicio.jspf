@@ -4,7 +4,7 @@
   Variable de la página: menuActivo = dashboard | usuarios | barberos | servicios | comisiones |
                                       citas | clientes | inventario | ventas |
                                       b-citas | b-atenciones | b-comisiones
-  El menú se arma según usuarioSesion.rol. Ocultar enlaces NO reemplaza el filtro de seguridad del backend.
+  El menú se arma según sessionScope.rol. Ocultar enlaces NO reemplaza el filtro de seguridad del backend.
 --%>
 <div class="bm-panel-top">
     <a class="bm-logo bm-logo--claro" href="${ctx}/">BARBER <span>MANAGER</span></a>
@@ -40,7 +40,7 @@
             </c:if>
         </nav>
         <div class="bm-usuario">
-            <b><c:out value="${usuarioSesion.username}"/></b>
+            <b><c:out value="${nombreSesion}"/></b>
             <span><c:out value="${rolSesion}"/></span>
             <form method="post" action="${ctx}/logout" class="mt-2">
                 <input type="hidden" name="csrfToken" value="<c:out value='${sessionScope.csrfToken}'/>">

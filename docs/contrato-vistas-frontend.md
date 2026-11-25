@@ -1,6 +1,6 @@
 # BarberManager — Contrato entre vistas JSP y Servlets (E0 + E1)
 
-> Propuesta de Gerald (frontend) para revisar con Alexander (backend). Si cambia un nombre, se cambia aquí y en la JSP.
+> Actualizado para usar los nombres que ya programó Alexander en `backend-alexander` (LoginServlet, RegistroServlet, filtros).
 
 ## 1. Cómo se arma cada vista
 
@@ -15,29 +15,32 @@ src/main/webapp/
     └── views/
         ├── fragments/                → taglibs, head, header-publico, footer, alertas,
         │                               panel-inicio / panel-fin (sidebar por rol), scripts
-        ├── publico/                  → inicio, servicios, barberos, login, registro
+        ├── login.jsp, registro.jsp   → misma ruta que usan LoginServlet y RegistroServlet (reemplazan las versiones simples)
+        ├── publico/                  → inicio, servicios, barberos (las carga PublicoServlet)
         ├── panel/_plantilla.jsp      → base para las vistas internas (E2–E4)
         └── error/                    → 403, 404, 500 (registradas en web.xml)
 ```
 
 El Servlet hace `request.getRequestDispatcher("/WEB-INF/views/publico/servicios.jsp").forward(req, resp);`.
 
-## 2. Atributos de sesión (los lee el header y el menú)
+## 2. Atributos de sesión (los crea LoginServlet)
 
-| Atributo | Tipo | Uso |
+| Atributo | Tipo | Uso en la vista |
 |---|---|---|
-| `usuarioSesion` | objeto con `getId()`, `getUsername()`, `getRol()` | saludo, menú por rol. `rol` ∈ `ADMINISTRADOR`, `RECEPCIONISTA`, `BARBERO`, `CLIENTE` |
-| `csrfToken` | `String` | se envía como campo oculto `csrfToken` en todos los POST |
-| `flashExito` / `flashError` | `String` | mensaje de una sola vez tras un redirect (la JSP lo borra al mostrarlo) |
+| `usuarioId` | `Long` | saber si hay sesión |
+| `rol` | `String` | menú por rol: `ADMINISTRADOR`, `RECEPCIONISTA`, `BARBERO`, `CLIENTE` |
+| `username` | `String` (opcional) | saludo "Hola, …". **Pedido a Alexander:** agregar `nueva.setAttribute("username", usuario.getUsername());` en LoginServlet. Si no está, se muestra "Hola, tu cuenta". |
+| `csrfToken` | `String` | lo crea CsrfFilter; todas las JSP lo envían como campo oculto `csrfToken` |
+| `flashExito` / `flashError` | `String` | mensaje de una sola vez tras un redirect |
 
-Ocultar un enlace NO es seguridad: el filtro de Alexander debe validar el rol en cada ruta.
+Ocultar un enlace NO es seguridad: AutorizacionFilter valida el rol en cada ruta.
 
 ## 3. Atributos de request comunes
 
 | Atributo | Tipo | Se ve como |
 |---|---|---|
 | `mensajeExito` | `String` | alerta verde |
-| `mensajeError` | `String` | alerta roja |
+| `error` o `mensajeError` | `String` | alerta roja (`error` es el nombre que usan LoginServlet y RegistroServlet) |
 | `mensajeInfo` | `String` | alerta azul |
 | `errores` | `Map<String,String>` campo → mensaje | texto rojo debajo del campo (la clave = `name` del input) |
 
@@ -45,18 +48,18 @@ Los valores del formulario se repintan con `param.*`, así que en caso de error 
 
 ## 4. Pantallas E1
 
-| Ruta | Método | JSP | Atributos que espera | Parámetros que envía |
-|---|---|---|---|---|
-| `/` | GET | `publico/inicio.jsp` | `servicios` (List<Servicio> activos, los 3 primeros van al bloque de precios) | — |
-| `/servicios` | GET | `publico/servicios.jsp` | `servicios` | enlaces a `/reservas/nueva?servicioId={id}` |
-| `/barberos` | GET | `publico/barberos.jsp` | `barberos` (List<Barbero> activos) | enlaces a `/reservas/nueva?barberoId={id}` |
-| `/login` | GET/POST | `publico/login.jsp` | `mensajeError` si falla | `usuario` (username o correo), `password`, `csrfToken`, `siguiente` (opcional) |
-| `/registro` | GET/POST | `publico/registro.jsp` | `errores`, `mensajeError` | `nombres`, `apellidos`, `telefono` (opcional), `email`, `username`, `password`, `confirmarPassword`, `csrfToken` |
-| `/logout` | POST | — | — | `csrfToken` → redirect a `/login?logout=1` |
+| Ruta | Método | Servlet | JSP | Atributos | Parámetros que envía la vista |
+|---|---|---|---|---|---|
+| `/` | GET | PublicoServlet | `publico/inicio.jsp` | `servicios` (activos) | enlaces a `/reservas/nueva?servicioId={id}` |
+| `/servicios` | GET | PublicoServlet | `publico/servicios.jsp` | `servicios` | `/reservas/nueva?servicioId={id}` |
+| `/barberos` | GET | PublicoServlet | `publico/barberos.jsp` | `barberos` (activos) | `/reservas/nueva?barberoId={id}` |
+| `/login` | GET/POST | LoginServlet | `login.jsp` | `error` | `username`, `password`, `csrfToken` |
+| `/registro` | GET/POST | RegistroServlet | `registro.jsp` | `error` | `nombres`, `apellidos`, `telefono` (opcional), `email`, `username`, `password`, `csrfToken` |
+| `/logout` | POST | LogoutServlet | — | — | `csrfToken` |
 
-Mensajes por parámetro en `/login`: `?logout=1` (sesión cerrada), `?registro=ok` (cuenta creada), `?expirada=1` (sesión vencida).
-Registro correcto → `redirect /login?registro=ok`. El rol `CLIENTE` lo pone el backend, nunca el formulario.
-`siguiente` debe validarse en backend (solo rutas internas que empiecen con `/`) para evitar redirecciones abiertas.
+Mensajes por parámetro en `/login`: `?registrado=1` (cuenta creada), `?logout=1`, `?expirada=1`.
+Contraseña: 12 a 128 caracteres (igual que AutenticacionService). `confirmarPassword` solo se revisa en el navegador.
+`PublicoServlet` (en `controller/publico`) es de solo lectura: lista servicios y barberos activos; si la BD falla, la página carga vacía con un aviso.
 
 ### Propiedades que usa la JSP (getters de las entidades)
 

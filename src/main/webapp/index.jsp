@@ -1,6 +1,5 @@
 <%--
-  Página de bienvenida temporal.
-  Cuando exista el Servlet de inicio (mapeado a "" → GET /), ese Servlet carga "servicios"
-  y hace forward a /WEB-INF/views/publico/inicio.jsp; este archivo deja de usarse.
+  Respaldo: normalmente "/" lo atiende PublicoServlet (@WebServlet("")), que carga los servicios.
+  Si se abre este archivo directamente, se muestra el inicio sin datos.
 --%>
 <jsp:forward page="/WEB-INF/views/publico/inicio.jsp"/>

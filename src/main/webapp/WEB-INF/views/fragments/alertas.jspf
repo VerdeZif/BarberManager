@@ -1,10 +1,11 @@
 <%@ page pageEncoding="UTF-8" %>
 <%--
   Mensajes del servidor.
-  Request:  mensajeExito, mensajeError, mensajeInfo
+  Request:  mensajeExito, mensajeError, mensajeInfo, error (nombre que usan los Servlets de Alexander)
   Sesión (flash, para Post/Redirect/Get): flashExito, flashError
   Los flash se borran después de mostrarse.
 --%>
+<c:if test="${not empty error and empty mensajeError}"><c:set var="mensajeError" value="${error}"/></c:if>
 <c:if test="${not empty sessionScope.flashExito}">
     <c:set var="mensajeExito" value="${sessionScope.flashExito}"/>
     <c:remove var="flashExito" scope="session"/>

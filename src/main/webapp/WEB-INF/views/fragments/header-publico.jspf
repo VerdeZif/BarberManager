@@ -2,7 +2,7 @@
 <%--
   Barra superior del portal público.
   Variable de la página: paginaActiva = inicio | servicios | barberos | reservar | mis-citas | login | registro
-  Sesión: usuarioSesion (username, rol). Solo oculta opciones: el permiso real lo valida el backend.
+  Sesión: usuarioId, rol (y username si el backend lo guarda). Solo oculta opciones: el permiso real lo valida el backend.
 --%>
 <c:choose>
     <c:when test="${rolSesion == 'ADMINISTRADOR'}"><c:set var="urlPanel" value="${ctx}/admin/dashboard"/></c:when>
@@ -30,12 +30,12 @@
             </ul>
             <div class="bm-acciones d-flex flex-wrap gap-2 align-items-center">
                 <c:choose>
-                    <c:when test="${empty usuarioSesion}">
+                    <c:when test="${not logueado}">
                         <a class="btn btn-bm-borde" href="${ctx}/login">Ingresar</a>
                         <a class="btn btn-bm" href="${ctx}/reservas/nueva">Reservar →</a>
                     </c:when>
                     <c:otherwise>
-                        <span class="bm-saludo me-1">Hola, <b><c:out value="${usuarioSesion.username}"/></b></span>
+                        <span class="bm-saludo me-1">Hola, <b><c:out value="${nombreSesion}"/></b></span>
                         <form method="post" action="${ctx}/logout" class="m-0">
                             <input type="hidden" name="csrfToken" value="<c:out value='${sessionScope.csrfToken}'/>">
                             <button type="submit" class="btn btn-bm-borde btn-bm-sm">Salir</button>

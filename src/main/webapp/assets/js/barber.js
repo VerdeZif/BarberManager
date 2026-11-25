@@ -23,8 +23,8 @@
       mensaje: 'Solo letras y espacios (mínimo 2 caracteres).'
     },
     password: {
-      prueba: function (v) { return v.length >= 8 && /[A-Za-z]/.test(v) && /\d/.test(v); },
-      mensaje: 'Mínimo 8 caracteres, con al menos una letra y un número.'
+      prueba: function (v) { return v.length >= 12 && /[A-Za-z]/.test(v) && /\d/.test(v); },
+      mensaje: 'Mínimo 12 caracteres, con al menos una letra y un número.'
     }
   };
 

@@ -1,3 +1,4 @@
+<%@ page pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/views/fragments/taglibs.jspf" %>
 <%@ page isErrorPage="true" %>
 <%-- Página de error 404 (registrada en web.xml) --%>

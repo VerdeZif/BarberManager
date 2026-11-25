@@ -6,5 +6,7 @@
 <%-- Formato peruano: S/ 25.00 --%>
 <fmt:setLocale value="es_PE" scope="request"/>
 <c:set var="ctx" value="${pageContext.request.contextPath}" scope="request"/>
-<c:set var="usuarioSesion" value="${sessionScope.usuarioSesion}" scope="request"/>
-<c:set var="rolSesion" value="${empty sessionScope.usuarioSesion ? '' : sessionScope.usuarioSesion.rol}" scope="request"/>
+<%-- Sesión que crea LoginServlet: usuarioId (Long) y rol (String). username es opcional. --%>
+<c:set var="logueado" value="${not empty sessionScope.usuarioId}" scope="request"/>
+<c:set var="rolSesion" value="${logueado ? sessionScope.rol : ''}" scope="request"/>
+<c:set var="nombreSesion" value="${not empty sessionScope.username ? sessionScope.username : 'tu cuenta'}" scope="request"/>

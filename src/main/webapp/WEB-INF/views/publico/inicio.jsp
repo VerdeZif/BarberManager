@@ -1,3 +1,4 @@
+<%@ page pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/views/fragments/taglibs.jspf" %>
 <%--
   GET /  — Inicio público
@@ -89,7 +90,7 @@
                     <span>Crea tu cuenta y revisa tus citas y tickets cuando quieras.</span>
                 </div>
                 <c:choose>
-                    <c:when test="${empty usuarioSesion}"><a class="btn btn-bm" href="${ctx}/registro">Crear cuenta</a></c:when>
+                    <c:when test="${not logueado}"><a class="btn btn-bm" href="${ctx}/registro">Crear cuenta</a></c:when>
                     <c:otherwise><a class="btn btn-bm" href="${ctx}/servicios">Ver todos los servicios</a></c:otherwise>
                 </c:choose>
             </div>

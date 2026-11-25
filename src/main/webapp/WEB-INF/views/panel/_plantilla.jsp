@@ -1,3 +1,4 @@
+<%@ page pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/views/fragments/taglibs.jspf" %>
 <%--
   PLANTILLA para las vistas del panel interno (E2–E4). Copiar este archivo y cambiar:
