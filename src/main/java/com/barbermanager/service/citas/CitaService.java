@@ -72,6 +72,65 @@ public class CitaService {
         });
     }
 
+
+    /**
+     * Cancela una cita verificando que pertenezca
+     * al cliente autenticado.
+     */
+    public void cancelarPorCliente(
+            Long citaId,
+            Long usuarioId
+    ) {
+
+        if (citaId == null || usuarioId == null) {
+            throw new IllegalArgumentException(
+                    "Datos de cancelación inválidos."
+            );
+        }
+
+        transacciones.ejecutar(em -> {
+
+            Cita cita = em.find(
+                    Cita.class,
+                    citaId,
+                    jakarta.persistence.LockModeType.PESSIMISTIC_WRITE
+            );
+
+            if (cita == null) {
+                throw new IllegalArgumentException(
+                        "Cita no encontrada."
+                );
+            }
+
+            Cliente cliente = cita.getCliente();
+
+            if (cliente.getUsuario() == null ||
+                    !usuarioId.equals(
+                            cliente.getUsuario().getId()
+                    )) {
+
+                throw new SecurityException(
+                        "No puedes cancelar una cita ajena."
+                );
+            }
+
+            String estado = cita.getEstado();
+
+            if (!"PENDIENTE".equals(estado) &&
+                    !"CONFIRMADA".equals(estado)) {
+
+                throw new IllegalStateException(
+                        "Esta cita ya no puede cancelarse."
+                );
+            }
+
+            cita.setEstado("CANCELADA");
+
+            return null;
+        });
+    }
+
+
     private LocalDateTime validarHorario(EntityManager em, Barbero barbero, int duracion, LocalDateTime inicio, Long excluirId) {
         if (inicio == null || !inicio.isAfter(LocalDateTime.now(ZoneId.of("America/Lima"))) || duracion <= 0)
             throw new IllegalArgumentException("Horario inválido");

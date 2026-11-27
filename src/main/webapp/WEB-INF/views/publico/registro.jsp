@@ -1,3 +1,4 @@
+<%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <%@ include file="/WEB-INF/views/fragments/taglibs.jspf" %>
 <%--
   GET/POST /registro — alta pública de CLIENTE (el rol lo fija el backend, nunca el formulario)
@@ -36,7 +37,7 @@
                     <div class="col-sm-6"><bm:campo nombre="telefono" etiqueta="Celular" tipo="tel" valor="${param.telefono}" regla="telefono" autocomplete="tel-national" maxlength="9" inputmode="numeric" placeholder="9XXXXXXXX" ayuda="Opcional. Para avisarte de tu cita."/></div>
                     <div class="col-sm-6"><bm:campo nombre="email" etiqueta="Correo" tipo="email" valor="${param.email}" requerido="true" autocomplete="email" maxlength="120"/></div>
                     <div class="col-12"><bm:campo nombre="username" etiqueta="Usuario" valor="${param.username}" requerido="true" regla="username" autocomplete="username" maxlength="50" ayuda="Con este nombre vas a ingresar."/></div>
-                    <div class="col-sm-6"><bm:campo nombre="password" etiqueta="Contraseña" tipo="password" requerido="true" regla="password" autocomplete="new-password" maxlength="72" ayuda="Mínimo 8 caracteres, con letras y números."/></div>
+                    <div class="col-sm-6"><bm:campo nombre="password" etiqueta="Contraseña" tipo="password" requerido="true" regla="password" autocomplete="new-password" maxlength="72" ayuda="Entre 12 y 72 caracteres, con letras y números."/></div>
                     <div class="col-sm-6"><bm:campo nombre="confirmarPassword" etiqueta="Repite la contraseña" tipo="password" requerido="true" igualA="password" autocomplete="new-password" maxlength="72"/></div>
                 </div>
                 <button type="submit" class="btn btn-bm w-100 mt-2" data-enviando="Creando cuenta…">Crear cuenta</button>

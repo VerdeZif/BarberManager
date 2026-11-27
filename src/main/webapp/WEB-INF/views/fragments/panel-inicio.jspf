@@ -24,7 +24,9 @@
                 <a href="${ctx}/admin/barberos" class="${menuActivo == 'barberos' ? 'active' : ''}">Barberos y horarios</a>
                 <a href="${ctx}/admin/servicios" class="${menuActivo == 'servicios' ? 'active' : ''}">Servicios</a>
                 <a href="${ctx}/admin/comisiones" class="${menuActivo == 'comisiones' ? 'active' : ''}">Comisiones</a>
+                <a href="${ctx}/admin/reportes" class="${menuActivo == 'reportes' ? 'active' : ''}">Reportes</a>
             </c:if>
+
             <c:if test="${rolSesion == 'ADMINISTRADOR' or rolSesion == 'RECEPCIONISTA'}">
                 <div class="bm-menu-grupo">RECEPCIÓN</div>
                 <a href="${ctx}/recepcion/citas" class="${menuActivo == 'citas' ? 'active' : ''}">Agenda de citas</a>

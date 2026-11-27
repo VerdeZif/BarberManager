@@ -10,10 +10,23 @@
 
     <display-name>BarberManager</display-name>
 
+    <!-- Configuración de codificación para todas las JSP -->
+    <jsp-config>
+        <jsp-property-group>
+            <url-pattern>*.jsp</url-pattern>
+            <page-encoding>UTF-8</page-encoding>
+            <default-content-type>
+                text/html; charset=UTF-8
+            </default-content-type>
+        </jsp-property-group>
+    </jsp-config>
+
+    <!-- Página de inicio -->
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
 
+    <!-- Configuración de sesiones -->
     <session-config>
         <session-timeout>30</session-timeout>
         <cookie-config>
@@ -21,15 +34,17 @@
         </cookie-config>
     </session-config>
 
-    <!-- Páginas de error con el diseño del sitio (frontend) -->
+    <!-- Páginas de error -->
     <error-page>
         <error-code>403</error-code>
         <location>/WEB-INF/views/error/403.jsp</location>
     </error-page>
+
     <error-page>
         <error-code>404</error-code>
         <location>/WEB-INF/views/error/404.jsp</location>
     </error-page>
+
     <error-page>
         <error-code>500</error-code>
         <location>/WEB-INF/views/error/500.jsp</location>

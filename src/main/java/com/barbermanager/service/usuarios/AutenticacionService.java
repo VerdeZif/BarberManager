@@ -20,7 +20,7 @@ public class AutenticacionService {
         if (!email.matches("^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$")) throw new IllegalArgumentException("Correo inválido");
         nombres = texto(nombres, 100, "Nombres");
         apellidos = texto(apellidos, 100, "Apellidos");
-        if (password == null || password.length < 12 || password.length > 128) throw new IllegalArgumentException("La contraseña debe tener entre 12 y 128 caracteres");
+        validarPassword(password);
         if (telefono != null && telefono.trim().length() > 20) throw new IllegalArgumentException("Teléfono demasiado largo");
         String hash = Password.hash(password);
         EntityManager em = factory.createEntityManager();
@@ -49,4 +49,39 @@ public class AutenticacionService {
         if (valor == null || valor.isBlank() || valor.trim().length() > max) throw new IllegalArgumentException(campo + " inválido");
         return valor.trim();
     }
+
+
+    private static void validarPassword(char[] password) {
+
+        if (password == null ||
+                password.length < 12 ||
+                password.length > 72) {
+
+            throw new IllegalArgumentException(
+                    "La contraseña debe tener entre 12 y 72 caracteres."
+            );
+        }
+
+        boolean tieneLetra = false;
+        boolean tieneNumero = false;
+
+        for (char caracter : password) {
+
+            if ((caracter >= 'A' && caracter <= 'Z') ||
+                    (caracter >= 'a' && caracter <= 'z')) {
+                tieneLetra = true;
+            }
+
+            if (caracter >= '0' && caracter <= '9') {
+                tieneNumero = true;
+            }
+        }
+
+        if (!tieneLetra || !tieneNumero) {
+            throw new IllegalArgumentException(
+                    "La contraseña debe contener al menos una letra y un número."
+            );
+        }
+    }
+
 }

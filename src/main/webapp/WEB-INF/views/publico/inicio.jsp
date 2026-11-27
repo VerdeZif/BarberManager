@@ -1,3 +1,4 @@
+<%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <%@ include file="/WEB-INF/views/fragments/taglibs.jspf" %>
 <%--
   GET /  — Inicio público
@@ -69,7 +70,7 @@
             <c:forEach var="s" items="${servicios}" begin="0" end="2" varStatus="st">
                 <c:set var="claseBloque" value="${st.index == 0 ? 'bm-b-grande' : (st.index == 1 ? 'bm-b-dorado' : 'bm-b-blanco')}"/>
                 <a class="${claseBloque}" href="${ctx}/reservas/nueva?servicioId=${s.id}">
-                    <c:if test="${st.index == 0}"><span class="bm-etiqueta">EL MÁS PEDIDO</span></c:if>
+                    <c:if test="${st.index == 0}"><span class="bm-etiqueta">DESTACADO</span></c:if>
                     <b class="bm-b-nombre"><c:out value="${s.nombre}"/></b>
                     <span class="bm-b-desc">
                         <c:if test="${not empty s.descripcion}"><c:out value="${s.descripcion}"/> · </c:if>${s.duracionMinutos} min

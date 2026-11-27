@@ -22,9 +22,15 @@
       prueba: function (v) { return /^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ' -]{2,100}$/.test(v); },
       mensaje: 'Solo letras y espacios (mínimo 2 caracteres).'
     },
+
     password: {
-      prueba: function (v) { return v.length >= 8 && /[A-Za-z]/.test(v) && /\d/.test(v); },
-      mensaje: 'Mínimo 8 caracteres, con al menos una letra y un número.'
+      prueba: function (v) {
+        return v.length >= 12 &&
+            v.length <= 72 &&
+            /[A-Za-z]/.test(v) &&
+            /\d/.test(v);
+      },
+      mensaje: 'Usa entre 12 y 72 caracteres, con al menos una letra y un número.'
     }
   };
 

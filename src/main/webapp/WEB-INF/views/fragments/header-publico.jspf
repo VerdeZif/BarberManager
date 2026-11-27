@@ -1,7 +1,7 @@
 <%@ page pageEncoding="UTF-8" %>
 <%--
   Barra superior del portal público.
-  Variable de la página: paginaActiva = inicio | servicios | barberos | reservar | mis-citas | login | registro
+  Variable de la página: paginaActiva = inicio | servicios | barberos | reservar | mis-citas | mis-tickets | login | registro
   Sesión: usuarioSesion (username, rol). Solo oculta opciones: el permiso real lo valida el backend.
 --%>
 <c:choose>
@@ -23,6 +23,7 @@
                 <li class="nav-item"><a class="nav-link ${paginaActiva == 'barberos' ? 'active' : ''}" ${paginaActiva == 'barberos' ? 'aria-current="page"' : ''} href="${ctx}/barberos">Barberos</a></li>
                 <c:if test="${rolSesion == 'CLIENTE'}">
                     <li class="nav-item"><a class="nav-link ${paginaActiva == 'mis-citas' ? 'active' : ''}" ${paginaActiva == 'mis-citas' ? 'aria-current="page"' : ''} href="${ctx}/mis-citas">Mis citas</a></li>
+                    <li class="nav-item"><a class="nav-link ${paginaActiva == 'mis-tickets' ? 'active' : ''}" ${paginaActiva == 'mis-tickets' ? 'aria-current="page"' : ''} href="${ctx}/mis-tickets">Mis tickets</a></li>
                 </c:if>
                 <c:if test="${not empty urlPanel}">
                     <li class="nav-item"><a class="nav-link" href="${urlPanel}">Ir al panel</a></li>

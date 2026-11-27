@@ -10,7 +10,17 @@ import java.io.IOException;
 import java.util.Set;
 
 /** Verifica el rol actual en base de datos, no solo el guardado en sesión. */
-@WebFilter(urlPatterns = {"/admin/*", "/recepcion/*", "/barbero/*", "/reservas/*", "/mis-citas/*", "/mis-tickets/*"})
+
+@WebFilter(urlPatterns = {
+        "/admin/*",
+        "/recepcion/*",
+        "/barbero/*",
+        "/reservas/*",
+        "/mis-citas",
+        "/mis-citas/*",
+        "/mis-tickets",
+        "/mis-tickets/*"
+})
 public class AutorizacionFilter implements Filter {
     @Override
     public void doFilter(ServletRequest solicitud, ServletResponse respuesta, FilterChain cadena)

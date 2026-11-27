@@ -1,3 +1,4 @@
+<%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <%@ include file="/WEB-INF/views/fragments/taglibs.jspf" %>
 <%--
   GET /servicios — Catálogo público
